@@ -92,12 +92,24 @@ const getTodosFromFile = () => fs.readFileSync(TODO_FILE_LOCATION, 'utf-8').spli
 
 const initializeTodoFile = () => fs.writeFileSync(TODO_FILE_LOCATION, '');
 
+const indexChecker = (todoIndex, todos) => {
+  const isValidIndex = todoIndex < todos.length && todoIndex >= 0;
+  if (!isValidIndex) {
+    console.log('invalid index provided');
+  }
+  return isValidIndex;
+}
+
 const addTodo = (todo) => {
   fs.appendFileSync(TODO_FILE_LOCATION, `${STATUS_UNCOMPLETE}${todo}\n`);
 };
 
 const changeTodoStatus = (todoIndex, isComplete) => {
-  const newFileString = getTodosFromFile()
+  const todos = getTodosFromFile();
+  const isValidIndex = indexChecker(todoIndex, todos);
+  if (!isValidIndex) return;
+
+  const newFileString = todos
     .map((todo, index) => {
       if (index === todoIndex) return `${isComplete ? STATUS_COMPLETE: STATUS_UNCOMPLETE}${todo.slice(1)}`
       else return todo;
@@ -117,17 +129,25 @@ const listTodos = () => {
 }
 
 const deleteTodo = (todoIndex) => {
+  const todos = getTodosFromFile();
+  const isValidIndex = indexChecker(todoIndex, todos);
+  if (!isValidIndex) return;
+
   const newFileString = getTodosFromFile().filter((elem, index) => index !== todoIndex).join('\n') + '\n';
   fs.writeFileSync(TODO_FILE_LOCATION, newFileString);
 };
 
 const moveTodo = (src, dest) => {
   let todos = getTodosFromFile();
+  const areValidIndices = indexChecker(src, todos) && indexChecker(dest, todos);
+  if (!areValidIndices) return;
+
   if (src < dest) {
     todos = [...todos.slice(0, src), ...todos.slice(src + 1, dest + 1), todos[src], ...todos.slice(dest + 1)];
   } else {
     todos = [...todos.slice(0, dest), todos[src], ...todos.slice(dest, src), ...todos.slice(src + 1)];
   }
+  console.log(todos);
   const newFileString = todos.join('\n') + '\n';
   fs.writeFileSync(TODO_FILE_LOCATION, newFileString);
 }

@@ -1,12 +1,17 @@
 {
-  "name": "todo-cli",
+  "name": "mytodos",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Manage your todos with an easy cli",
+  "keywords": [
+    "todo",
+    "todos",
+    "todo cli",
+    "cli"
+  ],
+  "preferGlobal": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
   "license": "ISC",
   "bin": {
     "todo": "./cli.js"
