@@ -17,7 +17,7 @@ const COMMAND_MV = 'mv';
 const COMMAND_CLEAR = 'clear';
 
 const STATUS_COMPLETE = 'c';
-const STATUS_UNCOMPLETE = 'u';
+const STATUS_UNCOMPLETE = 'u'; //test
 
 var parser = new ArgumentParser({
   version: '0.0.1',
