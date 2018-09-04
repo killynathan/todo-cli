@@ -2,6 +2,7 @@
   "name": "mytodos",
   "version": "1.0.0",
   "description": "Manage your todos with an easy cli",
+  "repository": "killynathan/todo-cli",
   "keywords": [
     "todo",
     "todos",
